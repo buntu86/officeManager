@@ -4,17 +4,15 @@ import com.officeManager.MainApp;
 import com.officeManager.data.Sql_listMandat;
 import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
-import com.officeManager.view.RootLayoutController;
 import java.io.IOException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -57,12 +55,11 @@ public class OpenMandatController {
     private Button fermer;    
     
     private MainApp mainApp;
-    private Stage dialogEditMandat = new Stage();
-    private RootLayoutController rootLayout;
+    private Stage dialogOpenMandat = new Stage();
     
     public OpenMandatController(){
     }
-    
+
     @FXML
     private void initialize() {
         colStatut.setCellValueFactory(cellData -> cellData.getValue().statutProperty());
@@ -72,6 +69,22 @@ public class OpenMandatController {
         colArchive.setCellValueFactory(cellData -> cellData.getValue().dateArchiveProperty());
         colCarton.setCellValueFactory(cellData -> cellData.getValue().numCartonProperty());
     }    
+    
+    public void show(){
+        try {
+           
+            Parent openMandat = FXMLLoader.load(getClass().getResource("/com/officeManager/view/dialog/OpenMandat.fxml"));
+        
+            Scene scene = new Scene(openMandat);
+            dialogOpenMandat.setScene(scene);
+            dialogOpenMandat.setResizable(false);
+            dialogOpenMandat.show();        
+            
+            //updateListMandat("all");    
+        } catch (IOException e) {
+            e.printStackTrace();
+        }         
+    }
     
     public void updateListMandat(String str){
         Sql_listMandat mandatsSql = new Sql_listMandat();
@@ -84,17 +97,24 @@ public class OpenMandatController {
             table.setItems(null);    
     }
     
-    public void afficherMandat(){
+   public void afficherMandat(){
         Log.msg(0, "OpenMandatController | CLICK afficher");
-        rootLayout.getDialogOpenMandat().close();
+        dialogOpenMandat.close();
     }
 
     public void fermerMandat(){
         Log.msg(0, "OpenMandatController | CLICK fermer");
-        rootLayout.getDialogOpenMandat().close();
+        dialogOpenMandat.close();
     }
-    
-    public void editerMandat(){
+ 
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
+}
+
+
+   
+   /* public void editerMandat(){
         dialogEditNewMandat("edit");
     }
     
@@ -102,10 +122,6 @@ public class OpenMandatController {
         dialogEditNewMandat("new");
     }
 
-    public void setRootLayout(RootLayoutController rootLayout) {
-        this.rootLayout = rootLayout;
-    }
-    
     private void dialogEditNewMandat(String str){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -124,5 +140,4 @@ public class OpenMandatController {
         } catch (IOException e) {
             e.printStackTrace();
         }  
-    }
-}
+    }*/

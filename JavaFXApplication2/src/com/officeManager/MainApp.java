@@ -12,6 +12,7 @@ import static javafx.application.Application.launch;
  */
 public class MainApp extends Application {
     private Stage primaryStage;
+    private RootLayoutController rootLayout = new RootLayoutController();
     
     public MainApp(){
     }
@@ -25,13 +26,16 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         setTitlePrimaryStage("");
         
-        RootLayoutController rootLayout = new RootLayoutController();
         rootLayout.setMainApp(this);
         rootLayout.show();
     }
     
     public Stage getPrimaryStage() {
-        return primaryStage;
+        return this.primaryStage;
+    }
+    
+    public RootLayoutController getRootLayout(){
+        return this.rootLayout;
     }
 
     public void setTitlePrimaryStage(String str)
