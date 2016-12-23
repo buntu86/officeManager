@@ -35,8 +35,6 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("Office Manager");
         
         initRootLayout();
-        
-        //showChoixMandat(); 
     }
     
     public Stage getPrimaryStage() {

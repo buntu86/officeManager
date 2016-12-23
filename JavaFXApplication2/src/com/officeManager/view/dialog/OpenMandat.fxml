@@ -33,7 +33,7 @@
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
                 <Button fx:id="afficher" mnemonicParsing="false" onAction="#afficherMandat" text="Afficher" />
-                  <Button fx:id="nouveau" mnemonicParsing="false" text="Nouveau" />
+                  <Button fx:id="nouveau" mnemonicParsing="false" onAction="#nouveauMandat" text="Nouveau" />
                   <Button fx:id="editer" mnemonicParsing="false" onAction="#editerMandat" text="Editer" />
                   <Button mnemonicParsing="false" text="Supprimer" />
                   <Button mnemonicParsing="false" onAction="#fermerMandat" text="Fermer" />
