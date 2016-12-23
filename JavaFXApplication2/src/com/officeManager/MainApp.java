@@ -1,11 +1,7 @@
 package com.officeManager;
 
 import com.officeManager.view.RootLayoutController;
-import java.io.IOException;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import static javafx.application.Application.launch;
 
@@ -16,7 +12,6 @@ import static javafx.application.Application.launch;
  */
 public class MainApp extends Application {
     private Stage primaryStage;
-    private BorderPane rootLayout;
     
     public MainApp(){
     }
@@ -30,14 +25,24 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         setTitlePrimaryStage("");
         
-        initRootLayout();
+        RootLayoutController rootLayout = new RootLayoutController();
+        rootLayout.setMainApp(this);
+        rootLayout.show();
     }
     
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    public void initRootLayout() {
+    public void setTitlePrimaryStage(String str)
+    {
+        if(!str.isEmpty())
+            str = " - " + str;
+        this.primaryStage.setTitle("Office Manager" + str);
+    }
+}
+
+    /*public void initRootLayout() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
@@ -55,15 +60,10 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
     
-    public void setTitlePrimaryStage(String str)
-    {
-        if(!str.isEmpty())
-            str = " - " + str;
-        this.primaryStage.setTitle("Office Manager" + str);
-    }
-}
+
+
 
 
 //mandats.add(new Mandat(1,1,1,1,1,1,1,"num","nom","carton"));
