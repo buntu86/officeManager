@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.officeManager.view.dialog.OpenMandatController">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" />
+            <TableView fx:id="table" prefHeight="200.0" prefWidth="430.0">
+              <columns>
+                <TableColumn fx:id="colStatut" prefWidth="75.0" text="Statut" />
+                <TableColumn fx:id="colNum" prefWidth="75.0" text="numMandat" />
+                  <TableColumn fx:id="colNom" prefWidth="75.0" text="nomMandat" />
+                  <TableColumn fx:id="colDebut" prefWidth="75.0" text="dateDebut" />
+                  <TableColumn fx:id="colArchive" prefWidth="75.0" text="dateArchive" />
+                  <TableColumn fx:id="colCarton" prefWidth="75.0" text="numCarton" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
