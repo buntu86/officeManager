@@ -1,52 +1,40 @@
-package com.officeManager.view;
+package com.officeManager.view.dialog;
 
 import com.officeManager.MainApp;
-import com.officeManager.view.dialog.OpenMandatController;
+import com.officeManager.utils.Log;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-public class RootLayoutController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author Adrien
+ */
+public class EditMandatController implements Initializable {
 
-    private MainApp mainApp;
     private Stage dialogOpenMandat = new Stage();
     
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL url, ResourceBundle rb) {
         
-    }
+    }    
     
-    @FXML
-    private void handleExit(){
-        System.exit(0);
-    }
-
-    @FXML
-    private void handleOpenMandat(){
-        dialogChoixMandat();
-    }
-
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-    }
-    
-    public void dialogChoixMandat() {
+    /*public void showChoixMandat() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/dialog/OpenMandat.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/dialog/EditMandat.fxml"));
             AnchorPane openMandat = (AnchorPane) loader.load();
             OpenMandatController controller = loader.getController();
             controller.updateListMandat("all");
-            controller.setRootLayout(this);
-            
+
+
             dialogOpenMandat.setTitle("Ouvrir mandat");
             dialogOpenMandat.initModality(Modality.WINDOW_MODAL);
             dialogOpenMandat.initOwner(mainApp.getPrimaryStage());
@@ -54,14 +42,10 @@ public class RootLayoutController implements Initializable {
             dialogOpenMandat.showAndWait();           
         } catch (IOException e) {
             e.printStackTrace();
-        }  
-    }    
-    
-    public Stage getDialogOpenMandat(){
-        return this.dialogOpenMandat;
-    }
-    
-    public MainApp getMainApp(){
-        return this.mainApp;
+        }        
+    }  */
+
+    void setIdMandat(int i) {
+        Log.msg(0, "idMandat " + i);
     }
 }

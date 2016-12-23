@@ -83,7 +83,7 @@ public class Sql_listMandat {
                         rs.getString("numMandat"), 
                         rs.getString("nomMandat"), 
                         rs.getString("numCarton")));
-                Log.msg(0, "Sql_listMandat | Loop mandats ");
+                //Log.msg(0, "Sql_listMandat | Loop mandats ");
             }
         }
         

@@ -26,8 +26,8 @@ public class Mandat {
         this.idClient = new SimpleIntegerProperty(idClient);
         this.idStatut = new SimpleIntegerProperty(idStatut);
 
-        //this.statutProperty = new SimpleStringProperty(Statut.getStatutById(getIdStatut()));
-        this.statutProperty = new SimpleStringProperty("statut");
+        this.statutProperty = new SimpleStringProperty(Statut.getStatutById(getIdStatut()));
+        //this.statutProperty = new SimpleStringProperty(Tools.convertIntToString(idStatut));
         this.numProperty = new SimpleStringProperty(numMandat);
         this.nomProperty = new SimpleStringProperty(nomMandat);
         //this.dateDebutProperty = new SimpleStringProperty(Tools.ConvertDateToLisible(dateDebut));
@@ -76,7 +76,7 @@ public class Mandat {
         return dateDebutProperty;
     }
     public int getDateDebut() {
-        return Tools.getInt(dateDebutProperty.get());
+        return Tools.convertStringToInt(dateDebutProperty.get());
     }
     public String getDateDebutLisible() {
         return dateDebutProperty.get();
@@ -90,7 +90,7 @@ public class Mandat {
         return dateArchiveProperty;
     }
     public int getDateArchive() {
-        return Tools.getInt(dateDebutProperty.get());
+        return Tools.convertStringToInt(dateDebutProperty.get());
     }
     public String getDateArchiveLisible() {
         return dateArchiveProperty.get();

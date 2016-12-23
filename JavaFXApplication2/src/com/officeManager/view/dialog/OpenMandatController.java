@@ -1,11 +1,16 @@
 package com.officeManager.view.dialog;
 
+import com.officeManager.MainApp;
 import com.officeManager.data.Sql_listMandat;
 import com.officeManager.model.Mandat;
+import com.officeManager.utils.Log;
+import com.officeManager.view.RootLayoutController;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -34,6 +39,22 @@ public class OpenMandatController {
     @FXML
     private TableColumn<Mandat, String> colCarton;
     
+    @FXML
+    private Button afficher;
+    
+    @FXML
+    private Button editer;
+    
+    @FXML
+    private Button nouveau;
+
+    @FXML
+    private Button fermer;    
+    
+    private MainApp mainApp;
+    private Stage dialogOpenMandat = new Stage();
+    private RootLayoutController rootLayout;
+    
     public OpenMandatController(){
     }
     
@@ -56,5 +77,27 @@ public class OpenMandatController {
         }
         else
             table.setItems(null);    
+    }
+    
+    public void afficherMandat(){
+        Log.msg(0, "OpenMandatController | CLICK afficher");
+        rootLayout.getDialogOpenMandat().close();
+    }
+
+    public void fermerMandat(){
+        Log.msg(0, "OpenMandatController | CLICK fermer");
+        rootLayout.getDialogOpenMandat().close();
+    }
+    
+    public void editerMandat(){
+        
+    }
+
+    public void setDialogOpenMandat(Stage dialogOpenMandat) {
+        this.dialogOpenMandat = dialogOpenMandat;
+    }
+
+    public void setRootLayout(RootLayoutController rootLayout) {
+        this.rootLayout = rootLayout;
     }
 }
