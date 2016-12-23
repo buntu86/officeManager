@@ -1,11 +1,8 @@
 package com.officeManager;
 
-import com.officeManager.model.Mandat;
 import com.officeManager.view.RootLayoutController;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -20,7 +17,6 @@ import static javafx.application.Application.launch;
 public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private ObservableList<Mandat> mandats = FXCollections.observableArrayList();
     
     public MainApp(){
     }
@@ -32,7 +28,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) { 
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Office Manager");
+        setTitlePrimaryStage("");
         
         initRootLayout();
     }
@@ -45,7 +41,7 @@ public class MainApp extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("/com/officeManager/view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
             RootLayoutController controller = loader.getController();
             controller.setMainApp(this);
@@ -59,6 +55,13 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void setTitlePrimaryStage(String str)
+    {
+        if(!str.isEmpty())
+            str = " - " + str;
+        this.primaryStage.setTitle("Office Manager" + str);
     }
 }
 
