@@ -12,7 +12,7 @@ import static javafx.application.Application.launch;
  */
 public class MainApp extends Application {
     private Stage primaryStage;
-    private RootLayoutController rootLayout = new RootLayoutController();
+    private final RootLayoutController rootLayout = new RootLayoutController();
     
     public MainApp(){
     }
@@ -27,7 +27,7 @@ public class MainApp extends Application {
         setTitlePrimaryStage("");
         
         rootLayout.setMainApp(this);
-        rootLayout.show();
+        rootLayout.showRootLayout();
     }
     
     public Stage getPrimaryStage() {
@@ -45,30 +45,6 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("Office Manager" + str);
     }
 }
-
-    /*public void initRootLayout() {
-        try {
-            // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/com/officeManager/view/RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
-            RootLayoutController controller = loader.getController();
-            controller.setMainApp(this);
-
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-            
-            controller.dialogChoixMandat();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-    
-
-
-
 
 //mandats.add(new Mandat(1,1,1,1,1,1,1,"num","nom","carton"));
 //mandats.add(new Mandat(2,2,2,2,2,2,2,"num2","nom2","carton2"));

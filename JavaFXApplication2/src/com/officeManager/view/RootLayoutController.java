@@ -3,22 +3,17 @@ package com.officeManager.view;
 import com.officeManager.MainApp;
 import com.officeManager.view.dialog.OpenMandatController;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-public class RootLayoutController implements Initializable {
+public class RootLayoutController {
 
     private MainApp mainApp;
-    private OpenMandatController openMandat = new OpenMandatController();    
-    
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
     
     @FXML
     private void handleExit(){
@@ -27,28 +22,52 @@ public class RootLayoutController implements Initializable {
 
     @FXML
     private void handleOpenMandat(){
-        openMandat.show();
+        showOpenMandatDialog();
     }
 
     public RootLayoutController(){
-        openMandat.setMainApp(mainApp);        
     }
     
-    public void show() {
+    public void showRootLayout() {
         try {
             Parent rootLayout = FXMLLoader.load(getClass().getResource("/com/officeManager/view/RootLayout.fxml"));
             
             Scene scene = new Scene(rootLayout);
             mainApp.getPrimaryStage().setScene(scene);
             mainApp.getPrimaryStage().show();
-
-            openMandat.show();
+           
+            showOpenMandatDialog();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }        
     
+    public void showOpenMandatDialog(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/officeManager/view/dialog/OpenMandat.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            
+            Stage openMandatStage = new Stage();
+            openMandatStage.setTitle("Choix du mandat");
+            openMandatStage.initModality(Modality.WINDOW_MODAL);
+            openMandatStage.initOwner(mainApp.getPrimaryStage());
+            Scene scene = new Scene(page);
+            openMandatStage.setScene(scene);
+            
+            OpenMandatController controller = loader.getController();
+            controller.setOpenMandatStage(openMandatStage);
+            controller.iniChoiceBox();
+            controller.updateListMandat("en cours");
+
+            openMandatStage.showAndWait();
+            
+        } catch (IOException e) {
+        e.printStackTrace();
+        }
+    }
+    
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-    }
+    }    
 }

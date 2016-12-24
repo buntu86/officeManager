@@ -5,12 +5,15 @@ import com.officeManager.data.Sql_listMandat;
 import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
 import java.io.IOException;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -52,10 +55,18 @@ public class OpenMandatController {
     private Button nouveau;
 
     @FXML
-    private Button fermer;    
+    private Button fermer;   
+    
+    @FXML
+    private Button enCours;
+    
+    @FXML
+    private ChoiceBox<String> choiceBox = new ChoiceBox<>();
     
     private MainApp mainApp;
-    private Stage dialogOpenMandat = new Stage();
+    //private Stage dialogOpenMandat = new Stage();
+    private Stage openMandatStage;
+
     
     public OpenMandatController(){
     }
@@ -68,23 +79,8 @@ public class OpenMandatController {
         colDebut.setCellValueFactory(cellData -> cellData.getValue().dateDebutProperty());
         colArchive.setCellValueFactory(cellData -> cellData.getValue().dateArchiveProperty());
         colCarton.setCellValueFactory(cellData -> cellData.getValue().numCartonProperty());
+
     }    
-    
-    public void show(){
-        try {
-           
-            Parent openMandat = FXMLLoader.load(getClass().getResource("/com/officeManager/view/dialog/OpenMandat.fxml"));
-        
-            Scene scene = new Scene(openMandat);
-            dialogOpenMandat.setScene(scene);
-            dialogOpenMandat.setResizable(false);
-            dialogOpenMandat.show();        
-            
-            //updateListMandat("all");    
-        } catch (IOException e) {
-            e.printStackTrace();
-        }         
-    }
     
     public void updateListMandat(String str){
         Sql_listMandat mandatsSql = new Sql_listMandat();
@@ -94,50 +90,36 @@ public class OpenMandatController {
             table.setItems(mandats);
         }
         else
-            table.setItems(null);    
+            table.setItems(null);   
+    }
+    
+    public void iniChoiceBox(){
+        choiceBox.getItems().add("en cours");
+        choiceBox.getItems().add("tous");
+        choiceBox.getItems().add("archive");
+        choiceBox.getSelectionModel().selectFirst();
+        
+        choiceBox.getSelectionModel()
+                .selectedItemProperty()
+                .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> updateListMandat(newValue) );
     }
     
    public void afficherMandat(){
-        Log.msg(0, "OpenMandatController | CLICK afficher");
-        dialogOpenMandat.close();
+        openMandatStage.close();
     }
 
     public void fermerMandat(){
-        Log.msg(0, "OpenMandatController | CLICK fermer");
-        dialogOpenMandat.close();
+        openMandatStage.close();
     }
- 
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
-}
 
-
-   
-   /* public void editerMandat(){
-        dialogEditNewMandat("edit");
+    public void setOpenMandatStage(Stage openMandatStage) {
+        this.openMandatStage = openMandatStage;
     }
     
-    public void nouveauMandat(){
-        dialogEditNewMandat("new");
-    }
-
-    private void dialogEditNewMandat(String str){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/dialog/EditMandat.fxml"));
-            AnchorPane editMandat = (AnchorPane) loader.load();
-            EditMandatController controller = loader.getController();
-            
-            if(str.equals("edit"))
-                dialogEditMandat.setTitle("Edition mandat");
-            else if(str.equals("new"))
-                dialogEditMandat.setTitle("Nouveau mandat");
-            dialogEditMandat.initModality(Modality.WINDOW_MODAL);
-            dialogEditMandat.initOwner(rootLayout.getDialogOpenMandat());
-            dialogEditMandat.setScene(new Scene(editMandat));              
-            dialogEditMandat.showAndWait();           
-        } catch (IOException e) {
-            e.printStackTrace();
-        }  
-    }*/
+    
+    
+}

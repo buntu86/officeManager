@@ -61,10 +61,19 @@ public class Sql_listMandat {
         
         connectToListMandat();
         
-        if(str.equals("all"))
-        {
-            sql = "SELECT * FROM ListMandats";
-            Log.msg(0, "Sql_listMandat | sql -> all");
+        switch(str){
+            case "all" :        sql = "SELECT * FROM ListMandats ORDER BY numMandat DESC";
+                                Log.msg(0, "Sql_listMandat | sql -> all");
+                                break;
+            case "en cours"  :   sql = "SELECT * FROM ListMandats WHERE idStatut=0 ORDER BY numMandat DESC";
+                                Log.msg(0, "Sql_listMandat | sql -> enCours");
+                                break;
+            case "archive"  :   sql = "SELECT * FROM ListMandats WHERE idStatut=1 ORDER BY numMandat DESC";
+                                Log.msg(0, "Sql_listMandat | sql -> archive");
+                                break;
+            default:            sql = "SELECT * FROM ListMandats ORDER BY numMandat DESC";
+                                Log.msg(1, "Sql_listMandat | sql -> all by default");
+                                break;                    
         }
         
         try{
@@ -83,7 +92,6 @@ public class Sql_listMandat {
                         rs.getString("numMandat"), 
                         rs.getString("nomMandat"), 
                         rs.getString("numCarton")));
-                //Log.msg(0, "Sql_listMandat | Loop mandats ");
             }
         }
         
