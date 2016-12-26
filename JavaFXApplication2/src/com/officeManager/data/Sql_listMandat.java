@@ -24,7 +24,6 @@ public class Sql_listMandat {
         Path pathListMandat = Paths.get("resources/listMandats.db");
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:" + pathListMandat);
-            Log.msg(0, "Sql_listMandat | Create file " + pathListMandat);
         } catch (SQLException e) {
             Log.msg(1, "Sql_listMandat | Fail to create file " + pathListMandat + " | "+ e.getMessage());
         }        
@@ -49,29 +48,30 @@ public class Sql_listMandat {
         try {
             Statement stmt  = conn.createStatement();
             stmt.execute(sql);
-            Log.msg(0, "Sql_listMandat | Creation listMandats");
         } catch (SQLException e) {
             Log.msg(1, "Sql_listMandat | Fail creation listMandats.db | " + e.getMessage());
         }           
     }
     
-    public ObservableList<Mandat> updateListMandats(String str) {
+    public ObservableList<Mandat> updateListMandats(String tris, String recherche) {
         String sql=null;
         ObservableList<Mandat> mandats = FXCollections.observableArrayList();
-        
         connectToListMandat();
         
-        switch(str){
-            case "all" :        sql = "SELECT * FROM ListMandats ORDER BY numMandat DESC";
+        if(recherche.trim().isEmpty())
+            recherche = "";
+        
+        switch(tris){
+            case "tous" :        sql = "SELECT * FROM ListMandats WHERE nomMandat LIKE '%" + recherche + "%' ORDER BY numMandat DESC";
                                 Log.msg(0, "Sql_listMandat | sql -> all");
                                 break;
-            case "en cours"  :   sql = "SELECT * FROM ListMandats WHERE idStatut=0 ORDER BY numMandat DESC";
+            case "en cours"  :   sql = "SELECT * FROM ListMandats WHERE idStatut=0 AND nomMandat LIKE '%" + recherche + "%' ORDER BY numMandat DESC";
                                 Log.msg(0, "Sql_listMandat | sql -> enCours");
                                 break;
-            case "archive"  :   sql = "SELECT * FROM ListMandats WHERE idStatut=1 ORDER BY numMandat DESC";
+            case "archive"  :   sql = "SELECT * FROM ListMandats WHERE idStatut=1 AND nomMandat LIKE '%" + recherche + "%' ORDER BY numMandat DESC";
                                 Log.msg(0, "Sql_listMandat | sql -> archive");
                                 break;
-            default:            sql = "SELECT * FROM ListMandats ORDER BY numMandat DESC";
+            default:            sql = "SELECT * FROM ListMandats AND nomMandat LIKE '%" + recherche + "%' ORDER BY numMandat DESC";
                                 Log.msg(1, "Sql_listMandat | sql -> all by default");
                                 break;                    
         }

@@ -4,18 +4,15 @@ import com.officeManager.MainApp;
 import com.officeManager.data.Sql_listMandat;
 import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
-import java.io.IOException;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -63,9 +60,13 @@ public class OpenMandatController {
     @FXML
     private ChoiceBox<String> choiceBox = new ChoiceBox<>();
     
+    @FXML
+    private TextField rechercheTextField = new TextField();
+    
     private MainApp mainApp;
     //private Stage dialogOpenMandat = new Stage();
     private Stage openMandatStage;
+    private String tris, recherche;
 
     
     public OpenMandatController(){
@@ -82,9 +83,11 @@ public class OpenMandatController {
 
     }    
     
-    public void updateListMandat(String str){
+    public void updateListMandat(String tris, String recherche){
         Sql_listMandat mandatsSql = new Sql_listMandat();
-        ObservableList<Mandat> mandats = mandatsSql.updateListMandats(str);
+        this.tris = tris;
+        this.recherche = recherche;
+        ObservableList<Mandat> mandats = mandatsSql.updateListMandats(this.tris, this.recherche);
         if(mandats!=null && !mandats.isEmpty())
         {
             table.setItems(mandats);
@@ -101,7 +104,12 @@ public class OpenMandatController {
         
         choiceBox.getSelectionModel()
                 .selectedItemProperty()
-                .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> updateListMandat(newValue) );
+                .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> updateListMandat(newValue, this.recherche) );
+    }
+    
+    public void listenerTextField(){
+        rechercheTextField.textProperty().addListener((observable, oldValue, newValue) -> {updateListMandat(this.tris, newValue); Log.msg(0, "text field changed : " + newValue);});
+        Platform.runLater(() -> {rechercheTextField.requestFocus();});
     }
     
    public void afficherMandat(){
@@ -119,7 +127,4 @@ public class OpenMandatController {
     public void setOpenMandatStage(Stage openMandatStage) {
         this.openMandatStage = openMandatStage;
     }
-    
-    
-    
 }

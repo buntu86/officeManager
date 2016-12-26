@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="635.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.officeManager.view.dialog.OpenMandatController">
+<AnchorPane id="AnchorPane" prefHeight="635.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.officeManager.view.dialog.OpenMandatController">
    <children>
       <VBox prefHeight="622.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -35,7 +35,7 @@
                      </padding>
                   </Label>
                   <Label prefHeight="17.0" prefWidth="269.0" text="Recherche" GridPane.rowIndex="1" />
-                  <TextField prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="rechercheTextField" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <VBox.margin>
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

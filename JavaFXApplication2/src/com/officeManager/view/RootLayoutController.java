@@ -58,7 +58,8 @@ public class RootLayoutController {
             OpenMandatController controller = loader.getController();
             controller.setOpenMandatStage(openMandatStage);
             controller.iniChoiceBox();
-            controller.updateListMandat("en cours");
+            controller.updateListMandat("en cours", "");
+            controller.listenerTextField();
 
             openMandatStage.showAndWait();
             
