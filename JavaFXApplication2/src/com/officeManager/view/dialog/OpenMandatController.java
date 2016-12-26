@@ -4,12 +4,14 @@ import com.officeManager.MainApp;
 import com.officeManager.data.Sql_listMandat;
 import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
+import com.officeManager.utils.Tools;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -63,6 +65,9 @@ public class OpenMandatController {
     @FXML
     private TextField rechercheTextField = new TextField();
     
+    @FXML
+    private Label nbrResultats;
+    
     private MainApp mainApp;
     //private Stage dialogOpenMandat = new Stage();
     private Stage openMandatStage;
@@ -94,6 +99,8 @@ public class OpenMandatController {
         }
         else
             table.setItems(null);   
+        Log.msg(0, "Size of mandat : " + mandats.size());
+        nbrResultats.setText(Tools.convertIntToString(mandats.size()));
     }
     
     public void iniChoiceBox(){

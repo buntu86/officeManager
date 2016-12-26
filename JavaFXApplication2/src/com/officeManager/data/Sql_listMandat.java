@@ -57,8 +57,10 @@ public class Sql_listMandat {
         String sql=null;
         ObservableList<Mandat> mandats = FXCollections.observableArrayList();
         connectToListMandat();
+        recherche = recherche.trim();
+        recherche = recherche.replace("'", "''");
         
-        if(recherche.trim().isEmpty())
+        if(recherche.isEmpty())
             recherche = "";
         
         switch(tris){
@@ -79,7 +81,7 @@ public class Sql_listMandat {
         try{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            Log.msg(0, "Sql_listMandat | ResultSet sql: " + sql);
+            Log.msg(0, "Sql_listMandat | ResultSet sql: ");
             
             while(rs.next()){
                 mandats.add(new Mandat(rs.getInt("ID"), 
