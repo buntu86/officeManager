@@ -5,9 +5,9 @@ import com.officeManager.view.dialog.OpenMandatController;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,21 +26,7 @@ public class RootLayoutController {
     }
 
     public RootLayoutController(){
-    }
-    
-    public void showRootLayout() {
-        try {
-            Parent rootLayout = FXMLLoader.load(getClass().getResource("/com/officeManager/view/RootLayout.fxml"));
-            
-            Scene scene = new Scene(rootLayout);
-            mainApp.getPrimaryStage().setScene(scene);
-            mainApp.getPrimaryStage().show();
-           
-            showOpenMandatDialog();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }        
+    }      
     
     public void showOpenMandatDialog(){
         try{
@@ -58,8 +44,10 @@ public class RootLayoutController {
             OpenMandatController controller = loader.getController();
             controller.setOpenMandatStage(openMandatStage);
             controller.iniChoiceBox();
+            controller.iniButtons();
             controller.updateListMandat("en cours", "");
             controller.listenerTextField();
+            controller.listenerTableView();
 
             openMandatStage.showAndWait();
             
@@ -71,4 +59,8 @@ public class RootLayoutController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }    
+
+    public void setRootLayout(BorderPane rootLayout) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

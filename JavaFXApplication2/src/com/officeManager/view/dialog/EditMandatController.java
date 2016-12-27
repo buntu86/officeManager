@@ -1,15 +1,14 @@
 package com.officeManager.view.dialog;
 
-import com.officeManager.MainApp;
+import com.officeManager.data.Sql_listMandat;
+import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -21,31 +20,55 @@ public class EditMandatController implements Initializable {
 
     private Stage dialogOpenMandat = new Stage();
     
+    @FXML
+    private TextField numMandat;
+
+    @FXML
+    private TextField nomMandat;
+
+    @FXML
+    private TextField dateDebut;
+
+    @FXML
+    private TextField dateArchive;    
+    
+    @FXML
+    private TextField numCarton;
+    
+    @FXML
+    private ChoiceBox<String> choiceBox = new ChoiceBox<>();    
+    private Stage editMandatStage;
+    private int idMandat=0;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
     }    
     
-    /*public void showChoixMandat() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/dialog/EditMandat.fxml"));
-            AnchorPane openMandat = (AnchorPane) loader.load();
-            OpenMandatController controller = loader.getController();
-            controller.updateListMandat("all");
-
-
-            dialogOpenMandat.setTitle("Ouvrir mandat");
-            dialogOpenMandat.initModality(Modality.WINDOW_MODAL);
-            dialogOpenMandat.initOwner(mainApp.getPrimaryStage());
-            dialogOpenMandat.setScene(new Scene(openMandat));              
-            dialogOpenMandat.showAndWait();           
-        } catch (IOException e) {
-            e.printStackTrace();
-        }        
-    }  */
+    public void iniChoiceBox(){
+        choiceBox.getItems().add("en cours");
+        choiceBox.getItems().add("tous");
+        choiceBox.getItems().add("archive");
+        //choiceBox.getSelectionModel().selectFirst();
+    }
 
     void setIdMandat(int i) {
         Log.msg(0, "idMandat " + i);
+        Sql_listMandat mandatsSql = new Sql_listMandat();
+        
+        Mandat mandat = mandatsSql.getMandatById(i);
+        numMandat.setText(mandat.getNumMandat());
+        nomMandat.setText(mandat.getNomMandat());
+        dateDebut.setText(mandat.getDateDebutLisible());
+        dateArchive.setText(mandat.getDateArchiveLisible());
+        numCarton.setText(mandat.getNumCarton());
+        
+    }
+
+    void setEditMandatStage(Stage editMandatStage) {
+        this.editMandatStage = editMandatStage;
+    }
+    
+    public void closeDialog(){
+        this.editMandatStage.close();
     }
 }

@@ -81,7 +81,7 @@ public class Sql_listMandat {
         try{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            Log.msg(0, "Sql_listMandat | ResultSet sql: ");
+            Log.msg(0, "Sql_listMandat | ResultSet sql: " + sql);
             
             while(rs.next()){
                 mandats.add(new Mandat(rs.getInt("ID"), 
@@ -96,7 +96,6 @@ public class Sql_listMandat {
                         rs.getString("numCarton")));
             }
         }
-        
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -105,5 +104,39 @@ public class Sql_listMandat {
             Log.msg(1, "Sql_listMandat | mandats is empty");
         
         return mandats;
+    }
+    
+    public Mandat getMandatById(int id){
+        Mandat mandat = null;
+
+        if(id>0)
+        {
+            String sql=null;
+            connectToListMandat();
+            try{
+                Statement stmt = conn.createStatement();
+                sql = "SELECT * FROM ListMandats WHERE ID=" + id;
+                ResultSet rs = stmt.executeQuery(sql);
+                Log.msg(0, "Sql_listMandat | ResultSet sql: " + sql);
+
+                while(rs.next()){
+                    mandat = new Mandat(rs.getInt("ID"), 
+                            rs.getInt("dateDebut"), 
+                            rs.getInt("dateArchive"),
+                            rs.getInt("idEntreprise"), 
+                            rs.getInt("idArchitecte"), 
+                            rs.getInt("idClient"), 
+                            rs.getInt("idStatut"), 
+                            rs.getString("numMandat"), 
+                            rs.getString("nomMandat"), 
+                            rs.getString("numCarton"));
+                }
+            }
+            catch(SQLException e){
+                System.out.println(e.getMessage());
+            }        
+        }
+        
+        return mandat;
     }
 }

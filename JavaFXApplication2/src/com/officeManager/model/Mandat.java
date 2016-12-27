@@ -125,7 +125,7 @@ public class Mandat {
     private IntegerProperty idMandatProperty() {
         return idMandat;
     }
-    private int getIdMandat(){
+    public int getIdMandat(){
         return idMandat.get();
     }
     private void setIdMandat(int idMandat) {
