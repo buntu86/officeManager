@@ -42,7 +42,7 @@
             <ChoiceBox fx:id="choiceBox" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ButtonBar prefHeight="37.0" prefWidth="384.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
               <buttons>
-                <Button mnemonicParsing="false" text="Enregistrer" />
+                <Button mnemonicParsing="false" onAction="#save" text="Enregistrer" />
                   <Button mnemonicParsing="false" onAction="#closeDialog" text="Annuler" />
               </buttons>
             </ButtonBar>

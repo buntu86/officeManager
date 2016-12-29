@@ -18,6 +18,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -93,7 +95,6 @@ public class OpenMandatController {
         colDebut.setCellValueFactory(cellData -> cellData.getValue().dateDebutProperty());
         colArchive.setCellValueFactory(cellData -> cellData.getValue().dateArchiveProperty());
         colCarton.setCellValueFactory(cellData -> cellData.getValue().numCartonProperty());
-
     }    
     
     public void updateListMandat(String tris, String recherche){
@@ -169,8 +170,11 @@ public class OpenMandatController {
             EditMandatController controller = loader.getController();
             controller.setEditMandatStage(editMandatStage);
             controller.iniChoiceBox();
+            controller.iniListener();
             controller.setIdMandat(idMandatSelected);
-
+            controller.setOpenMandatController(this);
+            controller.setTris(this.tris);         
+            
             editMandatStage.showAndWait();
             
         } catch (IOException e) {

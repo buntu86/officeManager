@@ -1,5 +1,7 @@
 package com.officeManager;
 
+import com.officeManager.utils.Log;
+import com.officeManager.utils.Tools;
 import com.officeManager.view.RootLayoutController;
 import java.io.IOException;
 import javafx.application.Application;
@@ -22,7 +24,9 @@ public class MainApp extends Application {
     }
     
     public static void main(String[] args) {
-        launch(args);       
+        launch(args);               
+        //Log.msg(0, Tools.ConvertDateToLisible(Tools.convertIntToString(1481500800)));
+        //Log.msg(0, Tools.ConvertDateToSecond("29.12.2016"));
     }    
 
     @Override
@@ -30,8 +34,7 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         setTitlePrimaryStage("");
         
-        showRootLayout();
-        
+        showRootLayout();           
     }
     
    public void showRootLayout() {

@@ -1,5 +1,6 @@
 package com.officeManager.model;
 
+import old.Statut;
 import com.officeManager.utils.Tools;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -20,20 +21,21 @@ public class Mandat {
     }
             
     public Mandat(int idMandat, int dateDebut, int dateArchive, int idEntreprise, int idArchitecte, int idClient, int idStatut, String numMandat, String nomMandat, String numCarton) {
+        if(dateArchive==0)
+            this.dateArchiveProperty = new SimpleStringProperty();
+        else
+            this.dateArchiveProperty = new SimpleStringProperty(Tools.convertIntToString(dateArchive));
+        
         this.idMandat = new SimpleIntegerProperty(idMandat);
         this.idEntreprise = new SimpleIntegerProperty(idEntreprise);
         this.idArchitecte = new SimpleIntegerProperty(idArchitecte);
         this.idClient = new SimpleIntegerProperty(idClient);
         this.idStatut = new SimpleIntegerProperty(idStatut);
 
-        this.statutProperty = new SimpleStringProperty(Statut.getStatutById(getIdStatut()));
-        //this.statutProperty = new SimpleStringProperty(Tools.convertIntToString(idStatut));
+        this.statutProperty = new SimpleStringProperty(Tools.getStatutById(getIdStatut()));
         this.numProperty = new SimpleStringProperty(numMandat);
         this.nomProperty = new SimpleStringProperty(nomMandat);
-        //this.dateDebutProperty = new SimpleStringProperty(Tools.ConvertDateToLisible(dateDebut));
-        this.dateDebutProperty = new SimpleStringProperty("dateDebut");
-        //this.dateArchiveProperty = new SimpleStringProperty(Tools.ConvertDateToLisible(dateArchive));
-        this.dateArchiveProperty = new SimpleStringProperty("dateArchive");
+        this.dateDebutProperty = new SimpleStringProperty(Tools.ConvertDateToLisible(Tools.convertIntToString(dateDebut)));
         this.numCartonProperty = new SimpleStringProperty(numCarton);        
     }
 
@@ -75,14 +77,14 @@ public class Mandat {
     public StringProperty dateDebutProperty() {
         return dateDebutProperty;
     }
-    public int getDateDebut() {
-        return Tools.convertStringToInt(dateDebutProperty.get());
-    }
-    public String getDateDebutLisible() {
+    public String getDateDebut() {
         return dateDebutProperty.get();
     }
-    public void setDateDebut(int dateDebutProperty) {
-        this.dateDebutProperty.set(Tools.ConvertDateToLisible(dateDebutProperty));
+    public String getDateDebutLisible() {
+        return Tools.ConvertDateToLisible(dateDebutProperty.get());
+    }
+    public void setDateDebut(String dateLisible) {
+        this.dateDebutProperty.set(Tools.ConvertDateToSecond(dateLisible));
     }
 
     //DateAchive
@@ -90,13 +92,10 @@ public class Mandat {
         return dateArchiveProperty;
     }
     public int getDateArchive() {
-        return Tools.convertStringToInt(dateDebutProperty.get());
+        return Tools.convertStringToInt(dateArchiveProperty.get());
     }
-    public String getDateArchiveLisible() {
-        return dateArchiveProperty.get();
-    }
-    public void setDateArchive(int dateArchiveProperty) {
-        this.dateArchiveProperty.set(Tools.ConvertDateToLisible(dateArchiveProperty));
+    public void setDateArchive(String dateArchive) {
+        this.dateArchiveProperty.set(dateArchive);
     }
 
     //NumCarton
@@ -106,15 +105,15 @@ public class Mandat {
     public String getNumCarton() {
         return numCartonProperty.get();
     }
-    public void setNumCartonProperty(String numCarton) {
+    public void setNumCarton(String numCarton) {
         this.numCartonProperty.set(numCarton);
     }
 
     //idStatut
-    private IntegerProperty idStatutProperty() {
+    public IntegerProperty idStatutProperty() {
         return idStatut;
     }
-    private int getIdStatut(){
+    public int getIdStatut(){
         return idStatut.get();
     }
     private void setIdStatut(int idStatut) {
@@ -136,7 +135,7 @@ public class Mandat {
     private IntegerProperty idArchitecteProperty() {
         return idArchitecte;
     }
-    private int getIdArchitecte(){
+    public int getIdArchitecte(){
         return idArchitecte.get();
     }
     private void setIdArchitecte(int idArchitecte) {
@@ -147,7 +146,7 @@ public class Mandat {
     private IntegerProperty idEntrepriseProperty() {
         return idEntreprise;
     }
-    private int getIdEntreprise(){
+    public int getIdEntreprise(){
         return idEntreprise.get();
     }
     private void setIdEntreprise(int idEntreprise) {
@@ -158,7 +157,7 @@ public class Mandat {
     private IntegerProperty idClientProperty() {
         return idClient;
     }
-    private int getIdClient(){
+    public int getIdClient(){
         return idClient.get();
     }
     private void setIdClient(int idClient) {

@@ -2,15 +2,18 @@ package com.officeManager.data;
 
 import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
+import com.officeManager.utils.Tools;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -64,7 +67,7 @@ public class Sql_listMandat {
             recherche = "";
         
         switch(tris){
-            case "tous" :        sql = "SELECT * FROM ListMandats WHERE nomMandat LIKE '%" + recherche + "%' ORDER BY numMandat DESC";
+            case "tous" :       sql = "SELECT * FROM ListMandats WHERE nomMandat LIKE '%" + recherche + "%' ORDER BY numMandat DESC";
                                 Log.msg(0, "Sql_listMandat | sql -> all");
                                 break;
             case "en cours"  :   sql = "SELECT * FROM ListMandats WHERE idStatut=0 AND nomMandat LIKE '%" + recherche + "%' ORDER BY numMandat DESC";
@@ -73,7 +76,7 @@ public class Sql_listMandat {
             case "archive"  :   sql = "SELECT * FROM ListMandats WHERE idStatut=1 AND nomMandat LIKE '%" + recherche + "%' ORDER BY numMandat DESC";
                                 Log.msg(0, "Sql_listMandat | sql -> archive");
                                 break;
-            default:            sql = "SELECT * FROM ListMandats AND nomMandat LIKE '%" + recherche + "%' ORDER BY numMandat DESC";
+            default:            sql = "SELECT * FROM ListMandats WHERE nomMandat LIKE '%" + recherche + "%' ORDER BY numMandat DESC";
                                 Log.msg(1, "Sql_listMandat | sql -> all by default");
                                 break;                    
         }
@@ -138,5 +141,55 @@ public class Sql_listMandat {
         }
         
         return mandat;
+    }
+
+    //http://alvinalexander.com/blog/post/jdbc/sample-jdbc-preparedstatement-sql-update
+    public boolean update(Mandat mandat) {
+
+        if(mandat!=null && !mandat.getNumMandat().trim().isEmpty()){
+            connectToListMandat();
+            try{
+                PreparedStatement pstmt = conn.prepareStatement("UPDATE ListMandats SET "
+                        + "numMandat=?, " //01
+                        + "nomMandat=?, " //02
+                        + "idStatut=?, " //03
+                        + "idEntreprise=?, " //04
+                        + "idArchitecte=?, " //05
+                        + "idClient=?, " //06
+                        + "dateDebut=?, " //07
+                        + "dateArchive=?, " //08
+                        + "numCarton=? " //09
+                        + "WHERE ID=?"); //10
+                pstmt.setString(1, mandat.getNumMandat());
+                pstmt.setString(2, mandat.getNomMandat());
+                pstmt.setInt(3, mandat.getIdStatut());
+                pstmt.setInt(4, mandat.getIdEntreprise());
+                pstmt.setInt(5, mandat.getIdArchitecte());
+                pstmt.setInt(6, mandat.getIdClient());
+                pstmt.setInt(7, Tools.convertStringToInt(mandat.getDateDebut()));
+                pstmt.setInt(8, mandat.getDateArchive());
+                pstmt.setString(9, mandat.getNumCarton());
+                pstmt.setInt(10, mandat.getIdMandat());
+                pstmt.executeUpdate();
+                pstmt.close();
+                
+                Log.msg(0, "Sql_listMandat | PreparedStatement sql");
+                return true;
+            }
+            catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Editer mandat");
+            alert.setHeaderText(null);
+            alert.setContentText("Le numéro de mandat est obligatoire.");
+            alert.showAndWait(); 
+            return false;
+        }
+        
+        return false;
     }
 }

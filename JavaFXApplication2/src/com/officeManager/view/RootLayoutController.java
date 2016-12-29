@@ -3,9 +3,12 @@ package com.officeManager.view;
 import com.officeManager.MainApp;
 import com.officeManager.view.dialog.OpenMandatController;
 import java.io.IOException;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -48,7 +51,12 @@ public class RootLayoutController {
             controller.updateListMandat("en cours", "");
             controller.listenerTextField();
             controller.listenerTableView();
-
+            
+            openMandatStage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent t) -> {
+                if(t.getCode()==KeyCode.ESCAPE)
+                    openMandatStage.close();
+            });            
+            
             openMandatStage.showAndWait();
             
         } catch (IOException e) {
