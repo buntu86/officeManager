@@ -25,17 +25,20 @@ public class Mandat {
             this.dateArchiveProperty = new SimpleStringProperty();
         else
             this.dateArchiveProperty = new SimpleStringProperty(Tools.convertIntToString(dateArchive));
-        
+
+        if(dateDebut==0)
+            this.dateDebutProperty = new SimpleStringProperty();
+        else
+            this.dateDebutProperty = new SimpleStringProperty(Tools.ConvertDateToLisible(Tools.convertIntToString(dateDebut)));
+            
         this.idMandat = new SimpleIntegerProperty(idMandat);
         this.idEntreprise = new SimpleIntegerProperty(idEntreprise);
         this.idArchitecte = new SimpleIntegerProperty(idArchitecte);
         this.idClient = new SimpleIntegerProperty(idClient);
         this.idStatut = new SimpleIntegerProperty(idStatut);
-
         this.statutProperty = new SimpleStringProperty(Tools.getStatutById(getIdStatut()));
         this.numProperty = new SimpleStringProperty(numMandat);
         this.nomProperty = new SimpleStringProperty(nomMandat);
-        this.dateDebutProperty = new SimpleStringProperty(Tools.ConvertDateToLisible(Tools.convertIntToString(dateDebut)));
         this.numCartonProperty = new SimpleStringProperty(numCarton);        
     }
 
@@ -84,7 +87,7 @@ public class Mandat {
         return Tools.ConvertDateToLisible(dateDebutProperty.get());
     }
     public void setDateDebut(String dateLisible) {
-        this.dateDebutProperty.set(Tools.ConvertDateToSecond(dateLisible));
+        this.dateDebutProperty.set(dateLisible);
     }
 
     //DateAchive

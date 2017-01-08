@@ -17,7 +17,9 @@ public class Log {
             System.out.print("[ V ] ");
         else if(i==1)
             System.out.print("[ X ] ");
-        
+
+        System.out.print(new Exception().getStackTrace()[1].getClassName() + " | ");
+
         System.out.println(str);
     }
 }

@@ -145,7 +145,6 @@ public class Sql_listMandat {
 
     //http://alvinalexander.com/blog/post/jdbc/sample-jdbc-preparedstatement-sql-update
     public boolean update(Mandat mandat) {
-
         if(mandat!=null && !mandat.getNumMandat().trim().isEmpty()){
             connectToListMandat();
             try{
@@ -174,10 +173,16 @@ public class Sql_listMandat {
                 pstmt.close();
                 
                 Log.msg(0, "Sql_listMandat | PreparedStatement sql");
+                Log.msg(0, "dateDebut : " + mandat.getDateDebut());
                 return true;
             }
             catch(SQLException e){
-                System.out.println(e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Editer mandat");
+                alert.setHeaderText(null);
+                alert.setContentText("Problème avec la requête SQL : " + e.getMessage());
+                alert.showAndWait(); 
+                return false;
             }
         }
         else
@@ -189,7 +194,5 @@ public class Sql_listMandat {
             alert.showAndWait(); 
             return false;
         }
-        
-        return false;
     }
 }

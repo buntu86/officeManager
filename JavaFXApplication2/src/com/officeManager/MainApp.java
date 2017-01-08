@@ -25,8 +25,6 @@ public class MainApp extends Application {
     
     public static void main(String[] args) {
         launch(args);               
-        //Log.msg(0, Tools.ConvertDateToLisible(Tools.convertIntToString(1481500800)));
-        //Log.msg(0, Tools.ConvertDateToSecond("29.12.2016"));
     }    
 
     @Override

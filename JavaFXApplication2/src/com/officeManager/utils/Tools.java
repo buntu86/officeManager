@@ -22,9 +22,28 @@ public class Tools {
     }
     
     public static String ConvertDateToSecond(String date){
+        if(date!=null)
+        {
+            String[] parts = date.split("\\.");
         
-        
-        return null;
+            if(parts.length==3)
+            {
+                int day = Integer.parseInt(parts[0]);
+                int month = Integer.parseInt(parts[1]);
+                int year = Integer.parseInt(parts[2]);
+
+                if(day<32 & day>0 & month>0 & month<13 & year>1900 & year<2100)
+                {
+                    return Long.toString(LocalDateTime.of(year, month, day, 0, 0).toEpochSecond(ZoneOffset.UTC));
+                }
+                else
+                    return "0";
+            }
+            else
+                return "0";
+        }
+        else
+            return "0";
     }
 
     public static int convertStringToInt(String test){
@@ -51,29 +70,3 @@ public class Tools {
         return str;
     }    
 }
-
-
-/*
-
-        
-        //http://stackoverflow.com/questions/22463062/how-to-parse-format-dates-with-localdatetime-java-8
-        //http://stackoverflow.com/questions/39628885/how-convert-localdatetime-to-date-in-java-8
-        //http://stackoverflow.com/questions/22463062/how-to-parse-format-dates-with-localdatetime-java-8
-        //1482958861
-        
-        /*long timePoint = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        long timePoint1 = LocalDateTime.of(2016, 12, 28, 21, 18).toEpochSecond(ZoneOffset.UTC);
-        
-        
-        Log.msg(0, "time : " + timePoint1 + " | " + timePoint);
-        
-        LocalDate currentDate = LocalDate.now();
-        LocalDate currentDate1 = LocalDate.of(2016, 12, 28);
-
-        long mili = LocalDateTime.of(2016, 12, 28, 0, 0).toEpochSecond(ZoneOffset.UTC);
-        Instant inst = Instant.ofEpochSecond(1482883200);
-        LocalDateTime dateTimeFromInstant = LocalDateTime.ofInstant(inst, ZoneOffset.UTC);
-        
-        Log.msg(0, "mili1 : " + mili);
-        Log.msg(0, "day : " + dateTimeFromInstant.getDayOfMonth() + dateTimeFromInstant.getMonthValue() + dateTimeFromInstant.getYear());
-        */

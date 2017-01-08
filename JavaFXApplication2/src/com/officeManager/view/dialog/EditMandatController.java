@@ -6,9 +6,12 @@ import com.officeManager.utils.Log;
 import com.officeManager.utils.Tools;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -40,6 +43,13 @@ public class EditMandatController implements Initializable {
     
     @FXML
     private ChoiceBox<String> choiceBox = new ChoiceBox<>();    
+    
+    @FXML
+    private Label dateArchiveLabel;
+    
+    @FXML
+    private Label numCartonLabel;
+    
     private Stage editMandatStage, openMandatStage;
     private int idMandat=0;
     private Mandat mandat=null;
@@ -48,7 +58,8 @@ public class EditMandatController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        dateDebut.setPromptText("jj.mm.aaaa");
+        dateArchive.setPromptText("aaaa");
     }    
     
     public void iniChoiceBox(){
@@ -66,20 +77,47 @@ public class EditMandatController implements Initializable {
         if(t.getCode()==KeyCode.ENTER)
             save();
         });
+        
+        choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>(){
+            public void changed(ObservableValue ov, Number value, Number new_value){
+                if(new_value.intValue()==1)
+                 {
+                     dateArchive.setDisable(false);
+                     numCarton.setDisable(false);
+                     dateArchiveLabel.setDisable(false);
+                     numCartonLabel.setDisable(false);
+                 }    
+                 else
+                 {
+                     dateArchive.setDisable(true);
+                     numCarton.setDisable(true);
+                     dateArchiveLabel.setDisable(true);
+                     numCartonLabel.setDisable(true);
+                 }                
+            }
+        });
     }   
     
     public void setIdMandat(int i) {
         Log.msg(0, "idMandat " + i);
         Sql_listMandat mandatsSql = new Sql_listMandat();
-        
         mandat = mandatsSql.getMandatById(i);
         if(mandat!=null){
             numMandat.setText(mandat.getNumMandat());
             nomMandat.setText(mandat.getNomMandat());
             dateDebut.setText(mandat.getDateDebut());
-            dateArchive.setText(Tools.convertIntToString(mandat.getDateArchive()));
-            numCarton.setText(mandat.getNumCarton());
             choiceBox.getSelectionModel().select(mandat.getIdStatut());
+            
+            if(choiceBox.getId().equals("1"))
+            {
+                dateArchive.setText(Tools.convertIntToString(mandat.getDateArchive()));
+                numCarton.setText(mandat.getNumCarton());
+            }    
+            else
+            {
+                dateArchive.setDisable(true);
+                numCarton.setDisable(true);
+            }
         }
     }
 
@@ -102,7 +140,10 @@ public class EditMandatController implements Initializable {
             mandat.setNomMandat(nomMandat.getText());
             mandat.setStatut(choiceBox.getSelectionModel().getSelectedIndex());
             mandat.setDateArchive(dateArchive.getText());
+            mandat.setDateDebut(Tools.ConvertDateToSecond(dateDebut.getText()));
             mandat.setNumCarton(numCarton.getText());
+            
+            //Log.msg(0, "EditMandatController | dateDebut " + Tools.ConvertDateToSecond(dateDebut.getText()));
             
             Sql_listMandat mandatsSql = new Sql_listMandat();
 
@@ -115,6 +156,23 @@ public class EditMandatController implements Initializable {
         }
     }
 
+    public void updateAfterChoiceBox(){
+           if(choiceBox.getId().equals("1"))
+            {
+                dateArchive.setDisable(false);
+                numCarton.setDisable(false);
+                dateArchiveLabel.setDisable(false);
+                numCartonLabel.setDisable(false);                
+            }    
+            else
+            {
+                dateArchive.setDisable(true);
+                numCarton.setDisable(true);
+                dateArchiveLabel.setDisable(true);
+                numCartonLabel.setDisable(true);                
+            }
+    }
+    
     void setOpenMandatController(OpenMandatController controller) {
         this.openMandatController = controller;
     }
