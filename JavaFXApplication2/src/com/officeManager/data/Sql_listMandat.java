@@ -253,5 +253,24 @@ public class Sql_listMandat {
             alert.showAndWait(); 
             return false;
         }
-    }    
+    }   
+
+    public void del(int idMandat){
+        if(idMandat!=0){
+            connectToListMandat();
+            try{
+                PreparedStatement pstmt = conn.prepareStatement("DELETE FROM ListMandats WHERE ID=?"); //01
+                pstmt.setInt(1, idMandat);
+                pstmt.executeUpdate();
+                pstmt.close();  
+            }          
+            catch(SQLException e){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Supprimer mandat");
+                alert.setHeaderText(null);
+                alert.setContentText("Problème avec la requête SQL : " + e.getMessage());
+                alert.showAndWait();                 
+            }
+        }
+    }
 }

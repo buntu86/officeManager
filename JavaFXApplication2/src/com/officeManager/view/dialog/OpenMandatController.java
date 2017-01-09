@@ -6,13 +6,16 @@ import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
 import com.officeManager.utils.Tools;
 import java.io.IOException;
+import java.util.Optional;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -198,7 +201,6 @@ public class OpenMandatController {
             controller.setEditMandatStage(addMandatStage);
             controller.iniChoiceBox();
             controller.iniListener();
-            //controller.setIdMandat(idMandatSelected);
             controller.setOpenMandatController(this);
             controller.setFromEditOrAdd("add");
             controller.setAdd();
@@ -210,11 +212,29 @@ public class OpenMandatController {
         }
     }
 
+    public void showDeleteAlert(){
+        Sql_listMandat mandatsSql = new Sql_listMandat();
+        Mandat mandat = mandatsSql.getMandatById(idMandatSelected);
+        if(mandat!=null){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Suppression mandat");
+            alert.setHeaderText(null);
+            alert.setContentText("Voulez-vous vraiement supprimer le mandat suivant? \n" + mandat.getNumMandat() + " - " + mandat.getNomMandat());
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                Log.msg(0, "ok");
+                mandatsSql.del(mandat.getIdMandat());
+                updateListMandat(tris, recherche);
+            } else {
+                Log.msg(0, "cancel");
+            }                
+        }
+    }
     
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-    }      
-    
+    }         
     
    public void afficherMandat(){
         openMandatStage.close();

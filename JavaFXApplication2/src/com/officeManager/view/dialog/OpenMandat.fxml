@@ -68,7 +68,7 @@
                 <Button fx:id="afficher" mnemonicParsing="false" onAction="#afficherMandat" text="Afficher" />
                   <Button fx:id="nouveau" mnemonicParsing="false" onAction="#showAddMandatDialog" text="Nouveau" />
                   <Button fx:id="editer" mnemonicParsing="false" onAction="#showEditMandatDialog" text="Editer" />
-                  <Button fx:id="supprimer" mnemonicParsing="false" text="Supprimer" />
+                  <Button fx:id="supprimer" mnemonicParsing="false" onAction="#showDeleteAlert" text="Supprimer" />
                   <Button mnemonicParsing="false" onAction="#fermerMandat" text="Fermer" />
               </buttons>
                <VBox.margin>
