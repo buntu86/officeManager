@@ -195,4 +195,63 @@ public class Sql_listMandat {
             return false;
         }
     }
+
+    public boolean add(Mandat mandat) {
+        if(mandat!=null && !mandat.getNumMandat().trim().isEmpty()){
+            connectToListMandat();
+            try{
+                PreparedStatement pstmt = conn.prepareStatement("INSERT INTO ListMandats ("
+                        + "numMandat, "
+                        + "nomMandat, "
+                        + "idStatut, "
+                        + "idEntreprise, "
+                        + "idArchitecte, "
+                        + "idClient, "
+                        + "dateDebut, "
+                        + "dateArchive, "
+                        + "numCarton) VALUES("
+                        + "?, " //01
+                        + "?, " //02
+                        + "?, " //03
+                        + "?, " //04
+                        + "?, " //05
+                        + "?, " //06
+                        + "?, " //07
+                        + "?, " //08
+                        + "?)"); //09
+                pstmt.setString(1, mandat.getNumMandat());
+                pstmt.setString(2, mandat.getNomMandat());
+                pstmt.setInt(3, mandat.getIdStatut());
+                pstmt.setInt(4, mandat.getIdEntreprise());
+                pstmt.setInt(5, mandat.getIdArchitecte());
+                pstmt.setInt(6, mandat.getIdClient());
+                pstmt.setInt(7, Tools.convertStringToInt(mandat.getDateDebut()));
+                pstmt.setInt(8, mandat.getDateArchive());
+                pstmt.setString(9, mandat.getNumCarton());
+                pstmt.executeUpdate();
+                pstmt.close();
+                
+                Log.msg(0, "Sql_listMandat | PreparedStatement sql");
+                Log.msg(0, "dateDebut : " + mandat.getDateDebut());
+                return true;
+            }
+            catch(SQLException e){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ajouter mandat");
+                alert.setHeaderText(null);
+                alert.setContentText("Problème avec la requête SQL : " + e.getMessage());
+                alert.showAndWait(); 
+                return false;
+            }
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ajouter mandat");
+            alert.setHeaderText(null);
+            alert.setContentText("Le numéro de mandat est obligatoire.");
+            alert.showAndWait(); 
+            return false;
+        }
+    }    
 }

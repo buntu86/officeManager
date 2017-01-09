@@ -17,7 +17,17 @@ public class Mandat {
     
     public Mandat()
     {
-        this(0,0,0,0,0,0,0,null,null,null);
+        this.dateArchiveProperty = new SimpleStringProperty();
+        this.dateDebutProperty = new SimpleStringProperty();
+        this.idMandat = new SimpleIntegerProperty();
+        this.idEntreprise = new SimpleIntegerProperty();
+        this.idArchitecte = new SimpleIntegerProperty();
+        this.idClient = new SimpleIntegerProperty();
+        this.idStatut = new SimpleIntegerProperty();
+        this.statutProperty = new SimpleStringProperty();
+        this.numProperty = new SimpleStringProperty();
+        this.nomProperty = new SimpleStringProperty();
+        this.numCartonProperty = new SimpleStringProperty();          
     }
             
     public Mandat(int idMandat, int dateDebut, int dateArchive, int idEntreprise, int idArchitecte, int idClient, int idStatut, String numMandat, String nomMandat, String numCarton) {

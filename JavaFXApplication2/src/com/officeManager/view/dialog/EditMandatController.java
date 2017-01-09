@@ -54,7 +54,7 @@ public class EditMandatController implements Initializable {
     private int idMandat=0;
     private Mandat mandat=null;
     private OpenMandatController openMandatController;
-    private String tris;
+    private String tris, fromAddOrEdit;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -120,6 +120,17 @@ public class EditMandatController implements Initializable {
             }
         }
     }
+    
+    public void setAdd(){
+        //Selection en cours (si ouvert ajout mandat)
+        choiceBox.getSelectionModel().select(0);
+        dateArchive.setDisable(true);
+        numCarton.setDisable(true);
+        dateArchiveLabel.setDisable(true);
+        numCartonLabel.setDisable(true);        
+        dateDebut.setText(Tools.ConvertDateToLisible((String.valueOf(System.currentTimeMillis()/1000))));
+        mandat = new Mandat();
+    }
 
     public void setEditMandatStage(Stage editMandatStage) {
         this.editMandatStage = editMandatStage;
@@ -128,6 +139,10 @@ public class EditMandatController implements Initializable {
     public void setOpenMandatStage(Stage openMandatStage) {
         this.openMandatStage = openMandatStage;
     }    
+    
+    public void setFromEditOrAdd(String str) {
+        this.fromAddOrEdit = str;
+    }
     
     public void closeDialog(){
         this.editMandatStage.close();
@@ -142,35 +157,44 @@ public class EditMandatController implements Initializable {
             mandat.setDateArchive(dateArchive.getText());
             mandat.setDateDebut(Tools.ConvertDateToSecond(dateDebut.getText()));
             mandat.setNumCarton(numCarton.getText());
-            
-            //Log.msg(0, "EditMandatController | dateDebut " + Tools.ConvertDateToSecond(dateDebut.getText()));
-            
             Sql_listMandat mandatsSql = new Sql_listMandat();
 
-            //test if numMandat isn't empty after trim, if not don't close and don't update list
-            if(mandatsSql.update(mandat))
+            if(fromAddOrEdit.equals("edit"))
             {
-                editMandatStage.close();
-                openMandatController.updateListMandat(this.tris, "");
+                //test if numMandat isn't empty after trim, if not don't close and don't update list
+                if(mandatsSql.update(mandat))
+                {
+                    editMandatStage.close();
+                    openMandatController.updateListMandat(this.tris, "");
+                }
+            }
+            else if(fromAddOrEdit.equals("add"))
+            {
+                //test if numMandat isn't empty after trim, if not don't close and don't update list
+                if(mandatsSql.add(mandat))
+                {
+                    editMandatStage.close();
+                    openMandatController.updateListMandat("1", "");
+                }
             }
         }
     }
 
     public void updateAfterChoiceBox(){
-           if(choiceBox.getId().equals("1"))
-            {
-                dateArchive.setDisable(false);
-                numCarton.setDisable(false);
-                dateArchiveLabel.setDisable(false);
-                numCartonLabel.setDisable(false);                
-            }    
-            else
-            {
-                dateArchive.setDisable(true);
-                numCarton.setDisable(true);
-                dateArchiveLabel.setDisable(true);
-                numCartonLabel.setDisable(true);                
-            }
+        if(choiceBox.getId().equals("1"))
+         {
+             dateArchive.setDisable(false);
+             numCarton.setDisable(false);
+             dateArchiveLabel.setDisable(false);
+             numCartonLabel.setDisable(false);                
+         }    
+         else
+         {
+             dateArchive.setDisable(true);
+             numCarton.setDisable(true);
+             dateArchiveLabel.setDisable(true);
+             numCartonLabel.setDisable(true);                
+         }
     }
     
     void setOpenMandatController(OpenMandatController controller) {

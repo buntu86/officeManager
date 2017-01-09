@@ -171,7 +171,8 @@ public class OpenMandatController {
             controller.iniListener();
             controller.setIdMandat(idMandatSelected);
             controller.setOpenMandatController(this);
-            controller.setTris(this.tris);         
+            controller.setTris(this.tris);  
+            controller.setFromEditOrAdd("edit");
             
             editMandatStage.showAndWait();
             
@@ -179,6 +180,36 @@ public class OpenMandatController {
         e.printStackTrace();
         }
     }
+
+    public void showAddMandatDialog(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/officeManager/view/dialog/AddMandat.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            
+            Stage addMandatStage = new Stage();
+            addMandatStage.setTitle("Ajouter du mandat");
+            addMandatStage.initModality(Modality.WINDOW_MODAL);
+            addMandatStage.initOwner(openMandatStage);
+            Scene scene = new Scene(page);
+            addMandatStage.setScene(scene);
+            
+            EditMandatController controller = loader.getController();
+            controller.setEditMandatStage(addMandatStage);
+            controller.iniChoiceBox();
+            controller.iniListener();
+            //controller.setIdMandat(idMandatSelected);
+            controller.setOpenMandatController(this);
+            controller.setFromEditOrAdd("add");
+            controller.setAdd();
+            
+            addMandatStage.showAndWait();
+            
+        } catch (IOException e) {
+        e.printStackTrace();
+        }
+    }
+
     
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;

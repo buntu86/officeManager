@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="635.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.officeManager.view.dialog.OpenMandatController">
+<AnchorPane id="AnchorPane" prefHeight="635.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.officeManager.view.dialog.OpenMandatController">
    <children>
       <VBox prefHeight="622.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -66,7 +66,7 @@
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
                 <Button fx:id="afficher" mnemonicParsing="false" onAction="#afficherMandat" text="Afficher" />
-                  <Button fx:id="nouveau" mnemonicParsing="false" text="Nouveau" />
+                  <Button fx:id="nouveau" mnemonicParsing="false" onAction="#showAddMandatDialog" text="Nouveau" />
                   <Button fx:id="editer" mnemonicParsing="false" onAction="#showEditMandatDialog" text="Editer" />
                   <Button fx:id="supprimer" mnemonicParsing="false" text="Supprimer" />
                   <Button mnemonicParsing="false" onAction="#fermerMandat" text="Fermer" />
