@@ -17,6 +17,12 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Quitter" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Edition">
+               <items>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpenSettingsDialog" text="Paramètres" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="?">
             <items>
               <MenuItem mnemonicParsing="false" text="A propos de" />

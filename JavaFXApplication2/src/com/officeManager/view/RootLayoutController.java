@@ -2,15 +2,14 @@ package com.officeManager.view;
 
 import com.officeManager.MainApp;
 import com.officeManager.view.dialog.OpenMandatController;
+import com.officeManager.view.dialog.SettingsController;
 import java.io.IOException;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,6 +25,11 @@ public class RootLayoutController {
     @FXML
     private void handleOpenMandat(){
         showOpenMandatDialog();
+    }
+    
+    @FXML
+    private void handleOpenSettingsDialog(){
+        showSettingsDialog();
     }
 
     public RootLayoutController(){
@@ -64,11 +68,35 @@ public class RootLayoutController {
         }
     }
     
+    public void showSettingsDialog(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/officeManager/view/dialog/Settings.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            
+            Stage settingsStage = new Stage();
+            settingsStage.setTitle("Paramètres");
+            settingsStage.initModality(Modality.WINDOW_MODAL);
+            settingsStage.initOwner(mainApp.getPrimaryStage());
+            Scene scene = new Scene(page);
+            settingsStage.setScene(scene);
+            
+            SettingsController controller = loader.getController();
+            controller.setSettingsStage(settingsStage);
+            
+            settingsStage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent t) -> {
+                if(t.getCode()==KeyCode.ESCAPE)
+                    settingsStage.close();
+            });            
+            
+            settingsStage.showAndWait();
+            
+        } catch (IOException e) {
+        e.printStackTrace();
+        }        
+    }
+    
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }    
-
-    public void setRootLayout(BorderPane rootLayout) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

@@ -1,7 +1,5 @@
 package com.officeManager;
 
-import com.officeManager.utils.Log;
-import com.officeManager.utils.Tools;
 import com.officeManager.view.RootLayoutController;
 import java.io.IOException;
 import javafx.application.Application;
@@ -64,6 +62,3 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("Office Manager" + str);
     }
 }
-
-//mandats.add(new Mandat(1,1,1,1,1,1,1,"num","nom","carton"));
-//mandats.add(new Mandat(2,2,2,2,2,2,2,"num2","nom2","carton2"));

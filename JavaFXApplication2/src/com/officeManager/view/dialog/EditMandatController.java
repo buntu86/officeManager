@@ -107,16 +107,22 @@ public class EditMandatController implements Initializable {
             nomMandat.setText(mandat.getNomMandat());
             dateDebut.setText(mandat.getDateDebut());
             choiceBox.getSelectionModel().select(mandat.getIdStatut());
+            dateArchive.setText(Tools.convertIntToString(mandat.getDateArchive()));
+            numCarton.setText(mandat.getNumCarton());
             
-            if(choiceBox.getId().equals("1"))
+            if(choiceBox.getSelectionModel().getSelectedIndex()==1)
             {
-                dateArchive.setText(Tools.convertIntToString(mandat.getDateArchive()));
-                numCarton.setText(mandat.getNumCarton());
+                dateArchive.setDisable(false);
+                numCarton.setDisable(false);
+                dateArchiveLabel.setDisable(false);
+                numCartonLabel.setDisable(false);
             }    
             else
             {
                 dateArchive.setDisable(true);
                 numCarton.setDisable(true);
+                dateArchiveLabel.setDisable(true);
+                numCartonLabel.setDisable(true);
             }
         }
     }

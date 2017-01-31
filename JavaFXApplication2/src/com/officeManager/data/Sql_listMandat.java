@@ -24,7 +24,7 @@ public class Sql_listMandat {
     private Connection conn=null;
     
     private void connectToListMandat() {
-        Path pathListMandat = Paths.get("resources/listMandats.db");
+        Path pathListMandat = ConfigVar.getListMandat();
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:" + pathListMandat);
         } catch (SQLException e) {
