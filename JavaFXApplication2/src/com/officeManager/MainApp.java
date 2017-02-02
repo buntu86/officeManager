@@ -1,5 +1,6 @@
 package com.officeManager;
 
+import com.officeManager.data.ConfigVar;
 import com.officeManager.view.RootLayoutController;
 import java.io.IOException;
 import javafx.application.Application;
@@ -30,7 +31,7 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         setTitlePrimaryStage("");
         
-        showRootLayout();           
+        showRootLayout();        
     }
     
    public void showRootLayout() {
@@ -44,6 +45,9 @@ public class MainApp extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+            
+            ConfigVar.iniConfig();
+            
             controller.showOpenMandatDialog();
 
         } catch (IOException e) {

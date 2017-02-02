@@ -4,7 +4,6 @@ import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
 import com.officeManager.utils.Tools;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
