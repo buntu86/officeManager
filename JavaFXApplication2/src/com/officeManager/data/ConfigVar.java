@@ -1,6 +1,8 @@
 package com.officeManager.data;
 
+import com.officeManager.utils.Tools;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,13 +12,14 @@ import javafx.scene.control.Alert;
 public class ConfigVar {
      
     private static Path pathListMandat;
-
+    private static Properties prop = new Properties();
+    private static int userAuth;
+    
     public static void iniConfig(){
-        Properties prop = new Properties();
-
         try {            
             prop.load(new FileInputStream("resources/config.properties"));
             setListMandat(prop.getProperty("listMandats"));
+            setUserAuth(prop.getProperty("userAuth"));
             
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -32,10 +35,25 @@ public class ConfigVar {
         return pathListMandat;
     }
     
+    //resources\listMandats.db
     public static boolean setListMandat(String str){
         if(Files.exists(Paths.get(str)))
         {
             pathListMandat = Paths.get(str);
+            if(!prop.getProperty("listMandats").equals(str))
+            {
+                prop.setProperty("listMandats", str);
+                try{
+                    prop.store(new FileOutputStream("resources/config.properties"), "edit listMandat");
+                }catch (Exception ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur fatale - fichier de config");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Le fichier de configuration n'a pas pu être sauvé.");
+                    alert.showAndWait();
+                    System.exit(1);
+                }  
+            }
             return true;
         }
         else
@@ -48,5 +66,12 @@ public class ConfigVar {
             alert.showAndWait();
             return false;
         }
+    }
+
+    private static void setUserAuth(String property) {
+        userAuth = Tools.convertStringToInt(property);
+    }
+    public static int getUserAuth(){
+        return userAuth;
     }
 }

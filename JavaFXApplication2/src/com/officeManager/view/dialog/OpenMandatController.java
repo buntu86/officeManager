@@ -1,6 +1,7 @@
 package com.officeManager.view.dialog;
 
 import com.officeManager.MainApp;
+import com.officeManager.data.ConfigVar;
 import com.officeManager.data.Sql_listMandat;
 import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
@@ -18,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -71,6 +73,9 @@ public class OpenMandatController {
     private Button enCours;
     
     @FXML
+    private Separator separatorEdit;
+    
+    @FXML
     private ChoiceBox<String> choiceBox = new ChoiceBox<>();
     
     @FXML
@@ -96,6 +101,13 @@ public class OpenMandatController {
         colDebut.setCellValueFactory(cellData -> cellData.getValue().dateDebutProperty());
         colArchive.setCellValueFactory(cellData -> cellData.getValue().dateArchiveProperty());
         colCarton.setCellValueFactory(cellData -> cellData.getValue().numCartonProperty());
+        if(ConfigVar.getUserAuth()==0)
+        {
+            nouveau.setVisible(false);
+            editer.setVisible(false);
+            supprimer.setVisible(false);
+            separatorEdit.setVisible(false);
+        }
     }    
     
     public void updateListMandat(String tris, String recherche){
