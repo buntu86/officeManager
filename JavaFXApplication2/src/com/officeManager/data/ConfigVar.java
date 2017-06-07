@@ -21,7 +21,7 @@ public class ConfigVar {
             setListMandat(prop.getProperty("listMandats"));
             setUserAuth(prop.getProperty("userAuth"));
             setPathProjets(prop.getProperty("pathProjets"));
-            //setPathArchive(prop.getProperty("pathArchive"));
+            setPathArchive(prop.getProperty("pathArchive"));
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur - fichier de config");
@@ -37,7 +37,11 @@ public class ConfigVar {
     }
         
     public static Path getPathProjets(){
-        return pathListMandat;
+        return pathProjets;
+    }
+    
+    public static Path getPathArchive(){
+        return pathArchive;
     }
     
     //resources\listMandats.db
@@ -104,6 +108,38 @@ public class ConfigVar {
             return false;
         }
     }    
+    public static boolean setPathArchive(String str){
+        if(Files.exists(Paths.get(str)))
+        {
+            pathArchive = Paths.get(str);
+            if(!prop.getProperty("pathArchive").equals(str))
+            {
+                prop.setProperty("pathArchive", str);
+                try{
+                    prop.store(new FileOutputStream("resources/config.properties"), "edit pathArchive");
+                }catch (Exception ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur fatale - fichier de config");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Le fichier de configuration n'a pas pu être sauvé.");
+                    alert.showAndWait();
+                    System.exit(1);
+                }  
+            }
+            return true;
+        }
+        else
+        {
+            pathArchive=Paths.get("");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Emplacement dossier Archive");
+            alert.setHeaderText(null);
+            alert.setContentText("Le dossier des mandats n'est pas valide : " + str);
+            alert.showAndWait();
+            return false;
+        }
+    }    
+
     
     private static void setUserAuth(String property) {
         userAuth = Tools.convertStringToInt(property);

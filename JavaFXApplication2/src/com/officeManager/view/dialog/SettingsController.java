@@ -31,14 +31,27 @@ public class SettingsController implements Initializable {
     public void updateValues()
     {
         listMandat.setText(ConfigVar.getListMandat().toString());
+        pathProjets.setText(ConfigVar.getPathProjets().toString());
+        pathArchive.setText(ConfigVar.getPathArchive().toString());
     }
     
     public void saveValues(){
-        if(ConfigVar.setListMandat(listMandat.getText()) && ConfigVar.setPathProjets(pathProjets.getText()))
-        {
+        if(ConfigVar.setListMandat(listMandat.getText()))
             Log.msg(0, "SaveValues listMandat -> " + listMandat.getText());
-            settingsStage.close();
-        }
+        else
+            Log.msg(1, "SaveValues listMandat -> " + listMandat.getText());
+        
+        if(ConfigVar.setPathProjets(pathProjets.getText()))
+            Log.msg(0, "SaveValues pathProjets -> " + pathProjets.getText());
+        else
+            Log.msg(1, "SaveValues pathProjets -> " + pathProjets.getText());
+
+        if(ConfigVar.setPathArchive(pathArchive.getText()))
+            Log.msg(0, "SaveValues pathArchive -> " + pathArchive.getText());
+        else
+            Log.msg(1, "SaveValues pathArchive -> " + pathArchive.getText());
+        
+        settingsStage.close();        
     }
     
     public void cancel(){
@@ -70,5 +83,16 @@ public class SettingsController implements Initializable {
         File selectedFile = chooser.showDialog(null);
         
         pathProjets.setText(selectedFile.getPath());
+    }        
+
+    public void directoryChooserPathArchive()
+    {
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("Choix du dossier Archive");
+        chooser.setInitialDirectory(ConfigVar.getPathArchive().getParent().toFile());
+        
+        File selectedFile = chooser.showDialog(null);
+        
+        pathArchive.setText(selectedFile.getPath());
     }        
 }

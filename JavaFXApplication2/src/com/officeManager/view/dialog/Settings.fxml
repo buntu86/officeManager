@@ -37,7 +37,7 @@
             <TextField fx:id="pathProjets" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="pathArchive" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" onAction="#directoryChooserPathProjets" text="Parcourir" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" text="Parcourir" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#directoryChooserPathArchive" text="Parcourir" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <ButtonBar layoutX="14.0" layoutY="316.0" prefHeight="40.0" prefWidth="550.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">

@@ -142,7 +142,6 @@ public class Sql_listMandat {
         return mandat;
     }
 
-    //http://alvinalexander.com/blog/post/jdbc/sample-jdbc-preparedstatement-sql-update
     public boolean update(Mandat mandat) {
         if(mandat!=null && !mandat.getNumMandat().trim().isEmpty()){
             connectToListMandat();
