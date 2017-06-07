@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.officeManager.view.dialog.SettingsController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.officeManager.view.dialog.SettingsController">
    <children>
       <GridPane layoutX="51.0" layoutY="47.0" prefHeight="90.0" prefWidth="550.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
         <columnConstraints>
@@ -31,7 +31,13 @@
          <children>
             <Label text="Emplacement fichier listeMandat.db" />
             <TextField fx:id="listMandat" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" onAction="#fileChooser" text="Parcourir" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#fileChooserListMandat" text="Parcourir" GridPane.columnIndex="2" />
+            <Label text="Emplacement dossiers projets" GridPane.rowIndex="1" />
+            <Label text="Emplacement dossiers archivés" GridPane.rowIndex="2" />
+            <TextField fx:id="pathProjets" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="pathArchive" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#directoryChooserPathProjets" text="Parcourir" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" text="Parcourir" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <ButtonBar layoutX="14.0" layoutY="316.0" prefHeight="40.0" prefWidth="550.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">

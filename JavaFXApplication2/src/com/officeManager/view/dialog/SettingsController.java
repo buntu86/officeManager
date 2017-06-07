@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -15,6 +16,10 @@ public class SettingsController implements Initializable {
 
     @FXML
     private TextField listMandat;
+    @FXML
+    private TextField pathProjets;
+    @FXML
+    private TextField pathArchive;
     
     private Stage settingsStage;
     
@@ -29,7 +34,7 @@ public class SettingsController implements Initializable {
     }
     
     public void saveValues(){
-        if(ConfigVar.setListMandat(listMandat.getText()))
+        if(ConfigVar.setListMandat(listMandat.getText()) && ConfigVar.setPathProjets(pathProjets.getText()))
         {
             Log.msg(0, "SaveValues listMandat -> " + listMandat.getText());
             settingsStage.close();
@@ -44,9 +49,10 @@ public class SettingsController implements Initializable {
         this.settingsStage = stg;
     }
 
-    public void fileChooser()
+    public void fileChooserListMandat()
     {
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choix du fichier listMandat.db");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("listMandat.db", "*.db"));
         fileChooser.setInitialDirectory(ConfigVar.getListMandat().getParent().toFile());
         
@@ -54,4 +60,15 @@ public class SettingsController implements Initializable {
         
         listMandat.setText(selectedFile.getPath());
     }    
+    
+    public void directoryChooserPathProjets()
+    {
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("Choix du dossier Projets");
+        chooser.setInitialDirectory(ConfigVar.getPathProjets().getParent().toFile());
+        
+        File selectedFile = chooser.showDialog(null);
+        
+        pathProjets.setText(selectedFile.getPath());
+    }        
 }

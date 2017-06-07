@@ -11,7 +11,7 @@ import javafx.scene.control.Alert;
 
 public class ConfigVar {
      
-    private static Path pathListMandat;
+    private static Path pathListMandat, pathProjets, pathArchive;
     private static Properties prop = new Properties();
     private static int userAuth;
     
@@ -20,7 +20,8 @@ public class ConfigVar {
             prop.load(new FileInputStream("resources/config.properties"));
             setListMandat(prop.getProperty("listMandats"));
             setUserAuth(prop.getProperty("userAuth"));
-            
+            setPathProjets(prop.getProperty("pathProjets"));
+            //setPathArchive(prop.getProperty("pathArchive"));
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur - fichier de config");
@@ -32,6 +33,10 @@ public class ConfigVar {
     }
     
     public static Path getListMandat(){
+        return pathListMandat;
+    }
+        
+    public static Path getPathProjets(){
         return pathListMandat;
     }
     
@@ -68,6 +73,38 @@ public class ConfigVar {
         }
     }
 
+    public static boolean setPathProjets(String str){
+        if(Files.exists(Paths.get(str)))
+        {
+            pathProjets = Paths.get(str);
+            if(!prop.getProperty("pathProjets").equals(str))
+            {
+                prop.setProperty("pathProjets", str);
+                try{
+                    prop.store(new FileOutputStream("resources/config.properties"), "edit pathProjet");
+                }catch (Exception ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur fatale - fichier de config");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Le fichier de configuration n'a pas pu être sauvé.");
+                    alert.showAndWait();
+                    System.exit(1);
+                }  
+            }
+            return true;
+        }
+        else
+        {
+            pathProjets=Paths.get("");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Emplacement dossier Projets");
+            alert.setHeaderText(null);
+            alert.setContentText("Le dossier des mandats n'est pas valide : " + str);
+            alert.showAndWait();
+            return false;
+        }
+    }    
+    
     private static void setUserAuth(String property) {
         userAuth = Tools.convertStringToInt(property);
     }
