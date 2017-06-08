@@ -6,7 +6,10 @@ import com.officeManager.data.Sql_listMandat;
 import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
 import com.officeManager.utils.Tools;
+import java.awt.Desktop;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -74,6 +77,9 @@ public class OpenMandatController {
     
     @FXML
     private Button enCours;
+    
+    @FXML
+    private Button ouvrir;
     
     @FXML
     private Separator separatorEdit;
@@ -144,7 +150,22 @@ public class OpenMandatController {
         afficher.setDisable(true);
         supprimer.setDisable(true);
     }    
-    
+    public void ouvrir() {
+        String tmpPath = "";
+        Sql_listMandat mandatsSql = new Sql_listMandat();
+        Mandat mandat = mandatsSql.getMandatById(idMandatSelected);
+        if(mandat!=null){
+            tmpPath = mandat.getPath();
+        }
+        
+        try{
+            Desktop.getDesktop().open(Paths.get(ConfigVar.getPathProjets() + tmpPath).toFile());
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+        
     public void listenerTextField(){
         rechercheTextField.textProperty().addListener((observable, oldValue, newValue) -> {updateListMandat(this.tris, newValue); Log.msg(0, "text field changed : " + newValue);});
         Platform.runLater(() -> {rechercheTextField.requestFocus();});

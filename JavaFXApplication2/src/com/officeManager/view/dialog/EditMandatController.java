@@ -223,12 +223,20 @@ public class EditMandatController implements Initializable {
     {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Choix du dossier Mandat");
-        /*if(mandat.getPath().toFile().exists())
-            chooser.setInitialDirectory(ConfigVar.getPathArchive().toFile());*/
+        
+        if(choiceBox.getValue().equals("en cours"))
+        {
+            if(ConfigVar.getPathProjets().toFile().exists())
+                chooser.setInitialDirectory(ConfigVar.getPathProjets().toFile());
+        }
+        else
+        {
+            if(ConfigVar.getPathArchive().toFile().exists())
+                chooser.setInitialDirectory(ConfigVar.getPathArchive().toFile());
+        }
         
         File selectedFile = chooser.showDialog(null);
-        
-        path.setText(selectedFile.getPath());
+       
+        path.setText(selectedFile.getPath().toString().replace(ConfigVar.getPathProjets().toString(), ""));
     }       
-    
 }
