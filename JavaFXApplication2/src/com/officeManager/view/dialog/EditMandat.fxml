@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.officeManager.view.dialog.EditMandatController">
+<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.officeManager.view.dialog.EditMandatController">
    <children>
       <GridPane layoutX="42.0" layoutY="31.0" prefHeight="300.0" prefWidth="400.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
         <columnConstraints>
@@ -50,7 +50,7 @@
               </buttons>
             </ButtonBar>
             <Label text="Chemin" GridPane.rowIndex="2" />
-            <Button alignment="CENTER" mnemonicParsing="false" text="Parcourir" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#directoryChooserPath" text="Parcourir" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

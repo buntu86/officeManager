@@ -1,9 +1,11 @@
 package com.officeManager.view.dialog;
 
+import com.officeManager.data.ConfigVar;
 import com.officeManager.data.Sql_listMandat;
 import com.officeManager.model.Mandat;
 import com.officeManager.utils.Log;
 import com.officeManager.utils.Tools;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -15,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 /**
@@ -215,4 +218,17 @@ public class EditMandatController implements Initializable {
     void setTris(String tris) {
         this.tris = tris;
     }
+
+    public void directoryChooserPath()
+    {
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("Choix du dossier Mandat");
+        /*if(mandat.getPath().toFile().exists())
+            chooser.setInitialDirectory(ConfigVar.getPathArchive().toFile());*/
+        
+        File selectedFile = chooser.showDialog(null);
+        
+        path.setText(selectedFile.getPath());
+    }       
+    
 }
