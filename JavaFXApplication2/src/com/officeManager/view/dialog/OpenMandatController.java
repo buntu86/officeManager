@@ -53,6 +53,9 @@ public class OpenMandatController {
     
     @FXML
     private TableColumn<Mandat, String> colCarton;
+
+    @FXML
+    private TableColumn<Mandat, String> colPath;
     
     @FXML
     private Button afficher;
@@ -101,6 +104,7 @@ public class OpenMandatController {
         colDebut.setCellValueFactory(cellData -> cellData.getValue().dateDebutProperty());
         colArchive.setCellValueFactory(cellData -> cellData.getValue().dateArchiveProperty());
         colCarton.setCellValueFactory(cellData -> cellData.getValue().numCartonProperty());
+        colPath.setCellValueFactory(cellData -> cellData.getValue().pathProperty());        
         if(ConfigVar.getUserAuth()==0)
         {
             nouveau.setVisible(false);

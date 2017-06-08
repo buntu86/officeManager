@@ -42,6 +42,9 @@ public class EditMandatController implements Initializable {
     private TextField numCarton;
     
     @FXML
+    private TextField path;
+    
+    @FXML
     private ChoiceBox<String> choiceBox = new ChoiceBox<>();    
     
     @FXML
@@ -109,6 +112,7 @@ public class EditMandatController implements Initializable {
             choiceBox.getSelectionModel().select(mandat.getIdStatut());
             dateArchive.setText(Tools.convertIntToString(mandat.getDateArchive()));
             numCarton.setText(mandat.getNumCarton());
+            path.setText(mandat.getPath());
             
             if(choiceBox.getSelectionModel().getSelectedIndex()==1)
             {
@@ -163,6 +167,7 @@ public class EditMandatController implements Initializable {
             mandat.setDateArchive(dateArchive.getText());
             mandat.setDateDebut(Tools.ConvertDateToSecond(dateDebut.getText()));
             mandat.setNumCarton(numCarton.getText());
+            mandat.setPath(path.getText());
             Sql_listMandat mandatsSql = new Sql_listMandat();
 
             if(fromAddOrEdit.equals("edit"))

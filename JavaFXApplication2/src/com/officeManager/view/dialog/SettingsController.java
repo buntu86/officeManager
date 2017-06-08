@@ -4,6 +4,8 @@ import com.officeManager.data.ConfigVar;
 import com.officeManager.utils.Log;
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -78,7 +80,8 @@ public class SettingsController implements Initializable {
     {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Choix du dossier Projets");
-        chooser.setInitialDirectory(ConfigVar.getPathProjets().getParent().toFile());
+        if(ConfigVar.getPathProjets().toFile().exists())
+            chooser.setInitialDirectory(ConfigVar.getPathProjets().toFile());
         
         File selectedFile = chooser.showDialog(null);
         
@@ -89,7 +92,8 @@ public class SettingsController implements Initializable {
     {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Choix du dossier Archive");
-        chooser.setInitialDirectory(ConfigVar.getPathArchive().getParent().toFile());
+        if(ConfigVar.getPathArchive().toFile().exists())
+            chooser.setInitialDirectory(ConfigVar.getPathArchive().toFile());
         
         File selectedFile = chooser.showDialog(null);
         

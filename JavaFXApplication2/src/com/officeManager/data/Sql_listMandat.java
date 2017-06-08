@@ -44,7 +44,8 @@ public class Sql_listMandat {
                 + "`idClient` INTEGER,\n"
                 + "`dateDebut` INTEGER,\n"
                 + "`dateArchive` INTEGER,\n"
-                + "`numCarton` TEXT\n"
+                + "`numCarton` TEXT,\n"
+                + "`path` TEXT\n"
                 + ");";
 
         try {
@@ -95,7 +96,8 @@ public class Sql_listMandat {
                         rs.getInt("idStatut"), 
                         rs.getString("numMandat"), 
                         rs.getString("nomMandat"), 
-                        rs.getString("numCarton")));
+                        rs.getString("numCarton"),
+                        rs.getString("path")));
             }
         }
         catch(SQLException e){
@@ -131,7 +133,9 @@ public class Sql_listMandat {
                             rs.getInt("idStatut"), 
                             rs.getString("numMandat"), 
                             rs.getString("nomMandat"), 
-                            rs.getString("numCarton"));
+                            rs.getString("numCarton"),
+                            rs.getString("path")
+                    );
                 }
             }
             catch(SQLException e){
@@ -155,8 +159,9 @@ public class Sql_listMandat {
                         + "idClient=?, " //06
                         + "dateDebut=?, " //07
                         + "dateArchive=?, " //08
-                        + "numCarton=? " //09
-                        + "WHERE ID=?"); //10
+                        + "numCarton=?, " //09
+                        + "path=? " //10                        
+                        + "WHERE ID=?"); //11
                 pstmt.setString(1, mandat.getNumMandat());
                 pstmt.setString(2, mandat.getNomMandat());
                 pstmt.setInt(3, mandat.getIdStatut());
@@ -166,7 +171,8 @@ public class Sql_listMandat {
                 pstmt.setInt(7, Tools.convertStringToInt(mandat.getDateDebut()));
                 pstmt.setInt(8, mandat.getDateArchive());
                 pstmt.setString(9, mandat.getNumCarton());
-                pstmt.setInt(10, mandat.getIdMandat());
+                pstmt.setString(10, mandat.getPath());                
+                pstmt.setInt(11, mandat.getIdMandat());
                 pstmt.executeUpdate();
                 pstmt.close();
                 
@@ -207,7 +213,8 @@ public class Sql_listMandat {
                         + "idClient, "
                         + "dateDebut, "
                         + "dateArchive, "
-                        + "numCarton) VALUES("
+                        + "numCarton, "                        
+                        + "path) VALUES("
                         + "?, " //01
                         + "?, " //02
                         + "?, " //03
@@ -216,7 +223,8 @@ public class Sql_listMandat {
                         + "?, " //06
                         + "?, " //07
                         + "?, " //08
-                        + "?)"); //09
+                        + "?, " //09                        
+                        + "?)"); //10
                 pstmt.setString(1, mandat.getNumMandat());
                 pstmt.setString(2, mandat.getNomMandat());
                 pstmt.setInt(3, mandat.getIdStatut());
@@ -226,6 +234,7 @@ public class Sql_listMandat {
                 pstmt.setInt(7, Tools.convertStringToInt(mandat.getDateDebut()));
                 pstmt.setInt(8, mandat.getDateArchive());
                 pstmt.setString(9, mandat.getNumCarton());
+                pstmt.setString(10, mandat.getPath());                
                 pstmt.executeUpdate();
                 pstmt.close();
                 

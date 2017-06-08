@@ -12,7 +12,7 @@ import javafx.beans.property.StringProperty;
  * @author adrien.pillonel
  */
 public class Mandat {
-    private final StringProperty statutProperty, numProperty, nomProperty, dateDebutProperty, dateArchiveProperty, numCartonProperty;
+    private final StringProperty statutProperty, numProperty, nomProperty, dateDebutProperty, dateArchiveProperty, numCartonProperty, pathProperty;
     private final IntegerProperty idMandat, idEntreprise, idArchitecte, idClient, idStatut;
     
     public Mandat()
@@ -27,10 +27,11 @@ public class Mandat {
         this.statutProperty = new SimpleStringProperty();
         this.numProperty = new SimpleStringProperty();
         this.nomProperty = new SimpleStringProperty();
-        this.numCartonProperty = new SimpleStringProperty();          
+        this.numCartonProperty = new SimpleStringProperty();
+        this.pathProperty = new SimpleStringProperty();
     }
             
-    public Mandat(int idMandat, int dateDebut, int dateArchive, int idEntreprise, int idArchitecte, int idClient, int idStatut, String numMandat, String nomMandat, String numCarton) {
+    public Mandat(int idMandat, int dateDebut, int dateArchive, int idEntreprise, int idArchitecte, int idClient, int idStatut, String numMandat, String nomMandat, String numCarton, String path) {
         if(dateArchive==0)
             this.dateArchiveProperty = new SimpleStringProperty();
         else
@@ -49,7 +50,8 @@ public class Mandat {
         this.statutProperty = new SimpleStringProperty(Tools.getStatutById(getIdStatut()));
         this.numProperty = new SimpleStringProperty(numMandat);
         this.nomProperty = new SimpleStringProperty(nomMandat);
-        this.numCartonProperty = new SimpleStringProperty(numCarton);        
+        this.numCartonProperty = new SimpleStringProperty(numCarton); 
+        this.pathProperty = new SimpleStringProperty(path);
     }
 
     //Statut
@@ -120,6 +122,17 @@ public class Mandat {
     }
     public void setNumCarton(String numCarton) {
         this.numCartonProperty.set(numCarton);
+    }
+    
+    //Path
+    public StringProperty pathProperty() {
+        return pathProperty;
+    }
+    public String getPath(){
+        return pathProperty.get();
+    }
+    public void setPath(String path){
+        this.pathProperty.set(path);
     }
 
     //idStatut

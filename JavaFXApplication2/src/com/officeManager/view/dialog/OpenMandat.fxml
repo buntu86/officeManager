@@ -17,7 +17,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="635.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.officeManager.view.dialog.OpenMandatController">
    <children>
-      <VBox prefHeight="622.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="622.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane hgap="5.0" vgap="5.0">
               <columnConstraints>
@@ -53,6 +53,7 @@
                 <TableColumn fx:id="colStatut" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" text="Statut" />
                 <TableColumn fx:id="colNum" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="numMandat" />
                   <TableColumn fx:id="colNom" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="nomMandat" />
+                  <TableColumn fx:id="colPath" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="chemin" />
                   <TableColumn fx:id="colDebut" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="dateDebut" />
                   <TableColumn fx:id="colArchive" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="dateArchive" />
                   <TableColumn fx:id="colCarton" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="numCarton" />
