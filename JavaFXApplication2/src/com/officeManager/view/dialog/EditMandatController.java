@@ -237,6 +237,9 @@ public class EditMandatController implements Initializable {
         
         File selectedFile = chooser.showDialog(null);
        
-        path.setText(selectedFile.getPath().toString().replace(ConfigVar.getPathProjets().toString(), ""));
+        if(choiceBox.getValue().equals("en cours"))
+            path.setText(selectedFile.getPath().toString().replace(ConfigVar.getPathProjets().toString(), ""));
+        else
+            path.setText(selectedFile.getPath().toString().replace(ConfigVar.getPathArchive().toString(), ""));
     }       
 }

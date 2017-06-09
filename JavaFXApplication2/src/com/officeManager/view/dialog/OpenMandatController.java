@@ -158,8 +158,21 @@ public class OpenMandatController {
             tmpPath = mandat.getPath();
         }
         
+        Log.msg(0, "mandat select " + mandat.getStatut());
+        
         try{
-            Desktop.getDesktop().open(Paths.get(ConfigVar.getPathProjets() + tmpPath).toFile());
+            if(mandat.getStatut()=="en cours")
+            {
+                if(Paths.get(ConfigVar.getPathProjets() + tmpPath).toFile().exists())
+                    Desktop.getDesktop().open(Paths.get(ConfigVar.getPathProjets() + tmpPath).toFile());
+                else
+                    Log.msg(1, "Le fichier " + ConfigVar.getPathProjets() + tmpPath + " n'existe pas.");
+            }
+            else
+                if(Paths.get(ConfigVar.getPathArchive() + tmpPath).toFile().exists())
+                    Desktop.getDesktop().open(Paths.get(ConfigVar.getPathArchive() + tmpPath).toFile());
+                else
+                    Log.msg(1, "Le fichier " + ConfigVar.getPathArchive() + tmpPath + " n'existe pas.");            
         }
         catch(IOException e){
             System.out.println(e.getMessage());
